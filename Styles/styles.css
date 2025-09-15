@@ -1,0 +1,114 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+body{
+  background-color: #150f08;
+}
+
+/*Navbar*/
+nav{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  border-bottom: 1px solid #fff;
+}
+nav ul{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  list-style: none;
+
+  gap: 1rem;
+  margin-right: 2rem;
+  padding: 1rem;
+}
+nav ul li a{
+  text-decoration: none;
+  color: #fff;
+  font-size: 1.5rem;
+}
+/*Main*/
+main{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+main h1{
+  font-size: 2.5rem;
+  color: #fff;
+  margin-top: 1rem;
+}
+/* ——— Carrusel ——— */
+.carousel {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.carousel-viewport {
+  position: relative;
+  overflow: hidden;              /* Oculta las imágenes fuera de vista */
+  border-radius: 12px; 
+  background: transparent;
+}
+
+/* La tira de imágenes */
+.img-container {
+  display: flex;                 /* Las imágenes en fila */
+  transition: transform .5s ease-in-out;
+  will-change: transform;
+
+  -webkit-overflow-scrolling: touch;
+}
+
+  /* Cada imagen ocupa todo el ancho visible */
+.img-container img {
+  width: 100%;
+  height: 420px;                 /* Ajusta a gusto */
+  object-fit: cover;
+  flex: 0 0 100%;                /* Muy importante: cada slide = 100% del viewport */
+  display: block;
+
+
+  @media (max-width: 760px) {
+    height: auto;
+    width: 100%;
+  }
+}
+
+/* Botones de navegación */
+.button-container {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Uno a la izquierda y otro a la derecha */
+  padding: 0 .5rem;
+  pointer-events: none;           /* Para que no tape el hover de la imagen */
+}
+
+.btn {
+  pointer-events: auto;           /* Los botones sí reciben clicks */
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  box-shadow: none;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: transform .15s ease, background .15s ease;
+}
+
+.btn:hover { transform: scale(1.05); }
+.btn:active { transform: scale(0.98); }
+.btn img { width: 24px; height: 24px; }
+.btn img { filter: invert(1) drop-shadow(0 1px 2px rgba(0,0,0,.7));}
