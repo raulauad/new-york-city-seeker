@@ -59,9 +59,9 @@ main h1{
   background: transparent;
 }
 
-/* La tira de imágenes */
+
 .img-container {
-  display: flex;                 /* Las imágenes en fila */
+  display: flex;                
   transition: transform .5s ease-in-out;
   will-change: transform;
 
@@ -71,9 +71,9 @@ main h1{
   /* Cada imagen ocupa todo el ancho visible */
 .img-container img {
   width: 100%;
-  height: 420px;                 /* Ajusta a gusto */
+  height: 420px;              
   object-fit: cover;
-  flex: 0 0 100%;                /* Muy importante: cada slide = 100% del viewport */
+  flex: 0 0 100%; /*Cada slide eqivale al 100% del viewport*/
   display: block;
 
 
@@ -91,11 +91,11 @@ main h1{
   align-items: center;
   justify-content: space-between; /* Uno a la izquierda y otro a la derecha */
   padding: 0 .5rem;
-  pointer-events: none;           /* Para que no tape el hover de la imagen */
+  pointer-events: none; /*Para que no tape el hover de la imagen */
 }
 
 .btn {
-  pointer-events: auto;           /* Los botones sí reciben clicks */
+  pointer-events: auto;/* Los botones sí reciben clicks */
   width: 44px;
   height: 44px;
   border: 0;
@@ -111,4 +111,4 @@ main h1{
 .btn:hover { transform: scale(1.05); }
 .btn:active { transform: scale(0.98); }
 .btn img { width: 24px; height: 24px; }
-.btn img { filter: invert(1) drop-shadow(0 1px 2px rgba(0,0,0,.7));}
+.btn img { filter: invert(1) drop-shadow(0 1px 2px rgba(0,0,0,.7));} /*Iconos blancos con sombra*/
