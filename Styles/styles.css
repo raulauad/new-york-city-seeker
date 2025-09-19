@@ -33,6 +33,39 @@ nav ul li a{
   color: #fff;
   font-size: 1.5rem;
 }
+
+.dropdown{
+  position: relative;
+  
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem;
+  
+}
+
+.dropbtn{
+
+  width: 4rem;
+  height: 4rem;
+
+  background: transparent;
+  border: none;
+
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: transform .15s ease, background .15s ease;
+}
+
+
+
+
+
+
+
+
 /*Main*/
 main{
   display: flex;
@@ -83,19 +116,19 @@ main h1{
   }
 }
 
-/* Botones de navegación */
+
 .button-container {
   position: absolute;
-  inset: 0;
+  inset: 0; 
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Uno a la izquierda y otro a la derecha */
-  padding: 0 .5rem;
-  pointer-events: none; /*Para que no tape el hover de la imagen */
+  justify-content: space-between; 
+  padding: 0.5rem;
+  pointer-events: none; 
 }
 
 .btn {
-  pointer-events: auto;/* Los botones sí reciben clicks */
+  pointer-events: auto;
   width: 44px;
   height: 44px;
   border: 0;
@@ -111,4 +144,5 @@ main h1{
 .btn:hover { transform: scale(1.05); }
 .btn:active { transform: scale(0.98); }
 .btn img { width: 24px; height: 24px; }
-.btn img { filter: invert(1) drop-shadow(0 1px 2px rgba(0,0,0,.7));} /*Iconos blancos con sombra*/
+.btn img { filter: invert(1) drop-shadow(0 1px 2px rgba(0,0,0,.7));}
+.dropbtn img { filter: invert(1) drop-shadow(0 1px 2px rgba(254, 254, 254, 0.2));} /*Iconos blancos con sombra*/
