@@ -16,47 +16,7 @@ nav{
   align-items: center;
 
   border-bottom: 1px solid #fff;
-}
-nav ul{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  list-style: none;
-
-  gap: 1rem;
-  margin-right: 2rem;
-  padding: 1rem;
-}
-nav ul li a{
-  text-decoration: none;
-  color: #fff;
-  font-size: 1.5rem;
-}
-
-.dropdown{
-  position: relative;
-  
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.5rem;
-  
-}
-
-.dropbtn{
-
-  width: 4rem;
   height: 4rem;
-
-  background: transparent;
-  border: none;
-
-  display: grid;
-  place-items: center;
-  cursor: pointer;
-  pointer-events: auto;
-  transition: transform .15s ease, background .15s ease;
 }
 
 
