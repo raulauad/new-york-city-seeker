@@ -146,3 +146,161 @@ main h1{
 .btn img { width: 24px; height: 24px; }
 .btn img { filter: invert(1) drop-shadow(0 1px 2px rgba(0,0,0,.7));}
 .dropbtn img { filter: invert(1) drop-shadow(0 1px 2px rgba(254, 254, 254, 0.2));} /*Iconos blancos con sombra*/
+
+
+/* ——— Buscador ——— */
+:root{
+  --border:#e5e5e5;
+  --muted:#666;
+  --error:#b00020;
+  --card-w:720px;      /* ancho fijo del card */
+  --card-h:320px;      /* alto fijo del card */
+  --img-w:260px;       /* ancho fijo de la columna de imagen */
+}
+
+*{ box-sizing:border-box }
+
+body{
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+  margin:24px;
+  background: #150f08;
+  color:#111;
+}
+
+.search-container h1{ 
+  margin-top: 1rem;
+  background: linear-gradient(to right,  #b46807 ,  #fae052);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  font-size: 5rem;
+  margin-bottom: 1rem;
+}
+
+.search{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+  gap: 1rem;
+}
+
+#q{
+  width: 100%;
+  max-width: 480px;
+  padding: 1rem;
+  font-size: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  outline: none;
+  
+  background-color: #928d88;
+  color: #fff;
+}
+
+#go{
+  padding: 1rem;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(to right,  #b46807 ,  #fae052);
+  font-size: 1rem;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* CONTENEDORES MÁS ANCHOS */
+.search-wrap, .results-wrap, #status {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* CARD GRANDE */
+.card.card-wide {
+  display: grid;
+  grid-template-columns: 480px 1fr;  /* imagen grande + contenido */
+  gap: 24px;
+  align-items: start;
+  background: #151515;
+  border: 1px solid #2a2a2a;
+  border-radius: 16px;
+  padding: 18px;
+  margin: 18px auto;
+  box-shadow: 0 10px 28px rgba(0,0,0,.35);
+}
+
+/* IMAGEN DE CABECERA */
+.card.card-wide .img-wrap {
+  width: 100%;
+  height: 420px;
+  overflow: hidden;
+  border-radius: 12px;
+  background: linear-gradient(180deg,#222,#111);
+}
+.card.card-wide .img-wrap img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* TITULOS/RESUMEN */
+.card.card-wide .title { font-size: 1.9rem; line-height: 1.2; margin: 0 0 8px; color: #fff }
+.card.card-wide .muted { color: #9aa0a6; font-weight: 400; }
+.card.card-wide .desc  { color: #c8c8c8; margin-bottom: 6px; }
+.card.card-wide .extract { color: #d6d6d6; margin-bottom: 10px; }
+.card.card-wide .meta { font-size: .95rem; color: #9aa0a6; margin-bottom: 14px; }
+.card.card-wide .meta a { color: #8ab4f8; }
+
+/* ARTÍCULO COMPLETO – NORMALIZACIÓN WIKI */
+.card.card-wide .article-html{
+  padding-top: 10px;
+  border-top: 1px dashed #928d88;
+  max-height: 65vh;         
+  overflow: auto;
+}
+
+/* Quitar elementos que la API deja pero no querés en tu UI */
+.article-html .mw-editsection,
+.article-html .mw-empty-elt,
+.article-html .noprint,
+.article-html .toc,
+.article-html .infobox .flagicon,
+.article-html sup.reference,
+.article-html .reflist,
+.article-html .navbox,
+.article-html .metadata { display: none !important; }
+
+/* Infobox al ancho, sin float, estilo limpio */
+.article-html .infobox{
+  float: none !important;
+  margin: 0 0 16px 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  background: #111;
+  color: #eaeaea;
+  border: 1px solid #333;
+  border-radius: 10px;
+}
+.article-html .infobox img{ max-width: 100% !important; height: auto !important; }
+
+/* Thumbs en bloque, sin flotados */
+.article-html .thumb, 
+.article-html .thumbinner{
+  float: none !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 12px 0 !important;
+}
+.article-html .thumb img{ width: 100% !important; height: auto !important; display: block; }
+
+/* Tablas */
+.article-html table{ border-collapse: collapse; width: 100%; }
+.article-html th, .article-html td{
+  border: 1px solid #333; padding: .5rem .6rem;
+}
+
+/* Tipografía del cuerpo */
+.article-html p{ line-height: 1.65; margin: .6em 0; color: #e6e6e6; }
+.article-html h2, .article-html h3{ margin-top: 1.2em; color: #fff; }
+.article-html a{ color: #8ab4f8; text-decoration: none; }
+.article-html a:hover{ text-decoration: underline; color: #fff; }

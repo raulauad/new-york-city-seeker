@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="Styles/styles.css">
     <script src = "JS/carousel.js" defer></script>
     <script src = "JS/dropdown-header.js" defer></script>
+    <script src = "JS/app-nyc.js" defer></script>
+    <script src = "JS/utilities.js" defer></script>
 </head>
 <body>
     <header>
@@ -24,7 +26,6 @@
         </nav>
     </header>
     <main>
-        <h1>Mi tienda web</h1>
         <section class = "carousel">
             <div class = "carousel-viewport">
                 <div class = "img-container" id = "imgs">
@@ -49,7 +50,18 @@
                     </button>
                 </div>
             </div>
+        </section>
+        <section class = "search-container">
+            <h1>Buscador cultural NYC</h1>
+            <div class="search">
+                <input id="q" type="search" placeholder="Ej.: brooklyn, manhattan, museo metropolitano…" />
+                <button id="go">Buscar</button>
+            </div>
 
+            <div id="status" class="muted">Escribe y presiona “Buscar” (o espera 400 ms).</div>
+            <div id="results" class="cards">
+
+            </div>
         </section>
     </main>
     <footer>

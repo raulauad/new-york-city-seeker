@@ -17,7 +17,7 @@ toggleButton.addEventListener('click', () => {
 
 window.addEventListener('click', (e) => {
 
-    if (!toggleButton.equals(e.target) && !dropdownMenu.contains(e.target)) {
+    if (!toggleButton.contains(e.target) && !dropdownMenu.contains(e.target)) {
         dropdownMenu.style.display = 'none';
         menuOpen = false;
         toggleButton.classList.remove('open');
