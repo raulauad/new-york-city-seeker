@@ -1,13 +1,12 @@
-// --- Guardrail NYC y helpers imagen (expuestos en window.NYC_GUARD) ---
-// Sin listas hardcodeadas: usamos Wikidata (P131), Categorías y Coordenadas.
+
 
 const NYC_BBOX = { minLat: 40.40, maxLat: 41.05, minLon: -74.30, maxLon: -73.60 };
 
 // Wikidata QIDs: NYC y boroughs
 const NYC_QIDS = new Set(["Q60","Q11299","Q1384","Q18424","Q41079","Q34499"]);
 
-const WD_CACHE  = new Map();   // cache P131
-const CAT_CACHE = new Map();   // cache categorías
+const WD_CACHE  = new Map();   
+const CAT_CACHE = new Map();   
 
 const inNycBbox = (lat,lon) =>
   typeof lat==="number" && typeof lon==="number" &&
@@ -97,7 +96,7 @@ async function nycScore(summary, lang){
     if (await belongsToNYCategories(summary.title, lang)) score += 4;
   }catch{}
 
-  // Wikidata P131 (más fuerte)
+  // Wikidata P131
   try{
     if (await wikidataLocatedInNYC(summary.wikibase_item)) score += 6;
   }catch{}
@@ -105,14 +104,14 @@ async function nycScore(summary, lang){
   return score;
 }
 
-// ---------- Imagen: fallbacks (media-list → summary → pageimages → Wikidata P18) ----------
+// ---------- Imagen: fallbacks
 function pickFromSrcset(srcset=[], targetW=800){
   if (!Array.isArray(srcset) || srcset.length===0) return null;
   const ordered = [...srcset].sort((a,b)=>(a.width||0)-(b.width||0));
   return ordered.find(x => (x.width||0) >= targetW)?.src || ordered[ordered.length-1].src;
 }
 
-// P18 de Wikidata (archivo en Commons)
+// P18 de Wikidata 
 async function wikidataMainImageUrl(wikibaseId, width = 800){
   if (!wikibaseId) return null;
   try{
@@ -153,5 +152,5 @@ window.NYC_GUARD = {
   isDisambiguation,
   inNycBbox,
   nycScore,       // puntaje NYC (P131 + categorías + coords)
-  bestImageUrl,   // mejor estrategia de imagen con fallbacks
+  bestImageUrl,   // fallbacks imagen
 };

@@ -136,14 +136,14 @@
     }catch(e){ if (e.name==="AbortError") throw e; return []; }
   }
 
-  // ---- Heurística de idioma (para priorizar enwiki cuando la query está en inglés)
+  // ---- Heurística de idioma 
   function preferEnglish(q){
     const s = q.trim();
     if (/[áéíóúñü]/i.test(s)) return false;
     return /\b(the|of|in|at|and)\b/i.test(s);
   }
 
-  // ---- Generación de candidatos (sin listas manuales) ----
+  // Genero candidatos de artículos (lang + title) a partir de la query
   async function* candidateStream(raw, signal){
     const primary = preferEnglish(raw) ? "en" : "es";
     const secondary = primary === "en" ? "es" : "en";
@@ -210,7 +210,7 @@
   }
 
   // ---- Controlador principal ----
-  async function buscarLugar(raw){
+  async function searchPlace(raw){
     const query = (raw || "").trim();
     clearResults();
 
@@ -279,8 +279,8 @@
   }
 
   // ---- Eventos ----
-  document.getElementById("go").addEventListener("click", () => buscarLugar($q.value));
-  $q.addEventListener("keydown", (e) => { if (e.key === "Enter") buscarLugar($q.value); });
+  document.getElementById("go").addEventListener("click", () => searchPlace($q.value));
+  $q.addEventListener("keydown", (e) => { if (e.key === "Enter") searchPlace($q.value); });
   $q.addEventListener("input", (e) => {
     clearTimeout(debounce);
     const v = e.target.value;
