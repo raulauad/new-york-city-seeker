@@ -27,7 +27,7 @@ async function fetchWikidataEntity(wikibaseId){
   return data?.entities?.[wikibaseId] ?? null;
 }
 
-// P131 NYC (con un nivel arriba)
+// P131 NYC 
 async function wikidataLocatedInNYC(wikibaseId){
   if (!wikibaseId) return false;
   const ck = `P131:${wikibaseId}`;

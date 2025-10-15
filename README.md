@@ -18,7 +18,7 @@
 
 <h2 style="color:#1976D2;">Flujo de Datos</h2>
 <ol>
-  <li>El usuario ingresa un término en la barra de búsqueda. Un <em>debounce</em> dispara búsquedas automáticas tras 450&nbsp;ms, o inmediatamente al hacer clic en «Buscar».</li>
+  <li>El usuario ingresa el nombre de una entidad o lugar ubicado en nueva york en la barra de búsqueda.</li>
   <li><code>utilities.js</code> consulta Wikipedia (OpenSearch y CirrusSearch) y Wikidata para generar candidatos relevantes. Los resultados se filtran y puntúan con <code>NYC_GUARD.nycScore</code>.</li>
   <li>El mejor candidato se enriquece con resúmenes, imágenes, contenido HTML completo y metadatos de atribución.</li>
   <li>El componente de UI genera una tarjeta amplia que incluye descripción, extracto, enlace a Wikipedia y el artículo completo adaptado a modo oscuro.</li>
