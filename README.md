@@ -1,21 +1,16 @@
-diff --git a/README.md b/README.md
-new file mode 100644
-index 0000000000000000000000000000000000000000..aa0b893b6fb3b8f6573a46b4e86be9ae047f97ed
---- /dev/null
-+++ b/README.md
-@@ -0,0 +1,111 @@
+
 +<h1 style="color:#0D47A1;">New York City Seeker – Documentación General</h1>
-+
-+<h2 style="color:#1976D2;">Visión General del Proyecto</h2>
-+<p><strong>New York City Seeker</strong> es una aplicación web estática que permite explorar lugares, eventos y hechos históricos relacionados con la ciudad de Nueva York utilizando contenidos de Wikipedia y Wikidata. El proyecto combina un carrusel hero con imágenes icónicas, un motor de búsqueda bilingüe (español/inglés) y una visualización enriquecida del artículo seleccionado.</p>
-+
-+<h2 style="color:#1976D2;">Últimos Cambios Relevantes</h2>
-+<ul>
-+  <li><strong>entrega-final-js</strong>: versión estabilizada con el buscador completo, integración de Toastify y mejoras de estilos oscuros.</li>
-+  <li><strong>Agrego comentarios explicando la lógica principal del código</strong>: documentación en línea para el componente de carrusel.</li>
-+  <li><strong>Filtro menunav</strong> y <strong>Inicio dropdown-menu horizontal</strong>: primeras iteraciones sobre la navegación (actualmente deshabilitadas en el HTML).</li>
-+</ul>
-+
+
+<h2 style="color:#1976D2;">Visión General del Proyecto</h2>
+<p><strong>New York City Seeker</strong> es una aplicación web estática que permite explorar lugares, eventos y hechos históricos relacionados con la ciudad de Nueva York utilizando contenidos de Wikipedia y Wikidata. El proyecto combina un carrusel hero con imágenes icónicas, un motor de búsqueda bilingüe (español/inglés) y una visualización enriquecida del artículo seleccionado.</p>
+
+<h2 style="color:#1976D2;">Últimos Cambios Relevantes</h2>
+<ul>
+  <li><strong>entrega-final-js</strong>: versión estabilizada con el buscador completo, integración de Toastify y mejoras de estilos oscuros.</li>
+  <li><strong>Agrego comentarios explicando la lógica principal del código</strong>: documentación en línea para el componente de carrusel.</li>
+  <li><strong>Filtro menunav</strong> y <strong>Inicio dropdown-menu horizontal</strong>: primeras iteraciones sobre la navegación (actualmente deshabilitadas en el HTML).</li>
+</ul>
+
 +<h2 style="color:#1976D2;">Arquitectura y Estructura de Archivos</h2>
 +<ul>
 +  <li><strong>index.html</strong>: punto de entrada; define la estructura de la página, enlaces a hojas de estilo, Toastify y scripts JavaScript.</li>
