@@ -2,7 +2,7 @@
 <h1 style="color:#0D47A1;">New York City Seeker – Documentación General</h1>
 
 <h2 style="color:#1976D2;">Visión General del Proyecto</h2>
-<p><strong>New York City Seeker</strong> es una aplicación web estática que permite explorar lugares, eventos y hechos históricos relacionados con la ciudad de Nueva York utilizando contenidos de Wikipedia y Wikidata. El proyecto combina un carrusel hero con imágenes icónicas, un motor de búsqueda bilingüe (español/inglés) y una visualización enriquecida del artículo seleccionado.</p>
+<p><strong>New York City Seeker</strong> es una aplicación web estática que permite explorar lugares(Motor de busq v1), relacionados con la ciudad de Nueva York utilizando contenidos de Wikipedia y Wikidata. El proyecto combina un carrusel hero con imágenes icónicas, un motor de búsqueda bilingüe (español/inglés) y una visualización enriquecida del artículo seleccionado.</p>
 
 <h2 style="color:#1976D2;">Últimos Cambios Relevantes</h2>
 <ul>
@@ -73,8 +73,7 @@
 <h3 style="color:#2196F3;">Primeros Pasos</h3>
 <ol>
   <li>Accede a la aplicación. El carrusel te mostrará imágenes representativas de Nueva York.</li>
-  <li>Localiza la barra «Geo-search Nueva York» y escribe un término relacionado (ej.: “Brooklyn Bridge”, “Revolución americana”).</li>
-  <li>Presiona «Buscar» o espera medio segundo para activar la búsqueda automática.</li>
+  <li>Localiza la barra «New York City Seeker» y escribe un término relacionado (ej.: “Brooklyn Bridge”, "Manhattan").</li>
 </ol>
 
 <h3 style="color:#2196F3;">Interpretar los Resultados</h3>
@@ -88,9 +87,7 @@
 
 <h3 style="color:#2196F3;">Buenas Prácticas de Búsqueda</h3>
 <ul>
-  <li>Para resultados en español, incluye tildes o palabras propias del idioma (“Nueva York”, “inauguración”).</li>
   <li>Si no encuentras resultados, reformula con sinónimos o agrega nombres de barrios/distritos.</li>
-  <li>Aprovecha el modo automático para explorar variaciones de términos rápidamente.</li>
 </ul>
 
 <h3 style="color:#2196F3;">Solución de Problemas</h3>
