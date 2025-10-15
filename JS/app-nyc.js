@@ -1,11 +1,11 @@
 
-
 const NYC_BBOX = { minLat: 40.40, maxLat: 41.05, minLon: -74.30, maxLon: -73.60 };
+const NYC_QIDS = new Set(["Q60","Q11299","Q1384","Q18424","Q41079","Q34499"]); // NYC + boroughs
 
-// Wikidata QIDs: NYC y boroughs
-const NYC_QIDS = new Set(["Q60","Q11299","Q1384","Q18424","Q41079","Q34499"]);
+//cache para entidades wikidata
+const WD_CACHE  = new Map();
 
-const WD_CACHE  = new Map();   
+//cache para categorias de wiki
 const CAT_CACHE = new Map();   
 
 const inNycBbox = (lat,lon) =>
@@ -18,46 +18,77 @@ function isDisambiguation(summary){
   return /desambiguaci[oó]n|disambiguation/i.test(d);
 }
 
-// ---------- Wikidata: ¿está ubicado administrativamente en NYC? ----------
+async function fetchWikidataEntity(wikibaseId){
+  if (!wikibaseId) return null;
+  const url = `https://www.wikidata.org/wiki/Special:EntityData/${encodeURIComponent(wikibaseId)}.json`;
+  const res = await fetch(url);
+  if (!res.ok) return null;
+  const data = await res.json();
+  return data?.entities?.[wikibaseId] ?? null;
+}
+
+// P131 NYC (con un nivel arriba)
 async function wikidataLocatedInNYC(wikibaseId){
   if (!wikibaseId) return false;
-  if (WD_CACHE.has(wikibaseId)) return WD_CACHE.get(wikibaseId);
-
+  const ck = `P131:${wikibaseId}`;
+  if (WD_CACHE.has(ck)) return WD_CACHE.get(ck);
   let ok = false;
   try{
-    const url = `https://www.wikidata.org/wiki/Special:EntityData/${encodeURIComponent(wikibaseId)}.json`;
-    const res = await fetch(url);
-    if (!res.ok) { WD_CACHE.set(wikibaseId,false); return false; }
-    const data = await res.json();
-    const ent = data?.entities?.[wikibaseId];
-
-    const p131 = (ent?.claims?.P131 || [])
-      .map(c => c?.mainsnak?.datavalue?.value?.id)
-      .filter(Boolean);
-
+    const ent = await fetchWikidataEntity(wikibaseId);
+    const p131 = (ent?.claims?.P131 || []).map(c => c?.mainsnak?.datavalue?.value?.id).filter(Boolean);
     if (p131.some(id => NYC_QIDS.has(id))) ok = true;
-
-    // Subir un nivel por si pertenece a un barrio dentro de un borough
     if (!ok){
       for (const qid of p131){
-        try{
-          const r2 = await fetch(`https://www.wikidata.org/wiki/Special:EntityData/${qid}.json`);
-          if (!r2.ok) continue;
-          const d2 = await r2.json();
-          const p131b = (d2?.entities?.[qid]?.claims?.P131 || [])
-            .map(c => c?.mainsnak?.datavalue?.value?.id).filter(Boolean);
-          if (p131b.some(id => NYC_QIDS.has(id))) { ok = true; break; }
-        }catch{}
+        const ent2 = await fetchWikidataEntity(qid);
+        const p131b = (ent2?.claims?.P131 || []).map(c => c?.mainsnak?.datavalue?.value?.id).filter(Boolean);
+        if (p131b.some(id => NYC_QIDS.has(id))) { ok = true; break; }
       }
     }
   }catch{}
-  WD_CACHE.set(wikibaseId, ok);
+  WD_CACHE.set(ck, ok);
   return ok;
 }
 
-// ---------- Wikipedia Categories: ¿pertenece a categorías de NYC? ----------
-function catKey(lang,title){ return `${lang}:${title}`.toLowerCase(); }
+// P276 (held at) en NYC
+async function wikidataHeldAtNYC(wikibaseId){
+  if (!wikibaseId) return false;
+  const ck = `P276:${wikibaseId}`;
+  if (WD_CACHE.has(ck)) return WD_CACHE.get(ck);
+  let ok = false;
+  try{
+    const ent = await fetchWikidataEntity(wikibaseId);
+    const p276 = (ent?.claims?.P276 || []).map(c => c?.mainsnak?.datavalue?.value?.id).filter(Boolean);
+    if (p276.some(id => NYC_QIDS.has(id))) ok = true;
+  }catch{}
+  WD_CACHE.set(ck, ok);
+  return ok;
+}
 
+//Es un evento (P31) o subclase de evento (P279)
+const EVENT_LIKE_QIDS = new Set(["Q1656682","Q1190554","Q132241","Q15275719","Q1692075"]);
+async function wikidataIsEventLike(wikibaseId){
+  if (!wikibaseId) return false;
+  const ck = `P31:${wikibaseId}`;
+  if (WD_CACHE.has(ck)) return WD_CACHE.get(ck);
+  let ok = false;
+  try{
+    const ent = await fetchWikidataEntity(wikibaseId);
+    const p31 = (ent?.claims?.P31 || []).map(c => c?.mainsnak?.datavalue?.value?.id).filter(Boolean);
+    if (p31.some(id => EVENT_LIKE_QIDS.has(id))) ok = true;
+    if (!ok){
+      for (const qid of p31){
+        const ent2 = await fetchWikidataEntity(qid);
+        const p279 = (ent2?.claims?.P279 || []).map(c => c?.mainsnak?.datavalue?.value?.id).filter(Boolean);
+        if (p279.some(id => EVENT_LIKE_QIDS.has(id))) { ok = true; break; }
+      }
+    }
+  }catch{}
+  WD_CACHE.set(ck, ok);
+  return ok;
+}
+
+// Categorías de Wikipedia (señales NYC)
+function catKey(lang,title){ return `${lang}:${title}`.toLowerCase(); }
 async function belongsToNYCategories(title, lang="en"){
   const key = catKey(lang,title);
   if (CAT_CACHE.has(key)) return CAT_CACHE.get(key);
@@ -70,64 +101,65 @@ async function belongsToNYCategories(title, lang="en"){
     const j = await r.json();
     const pages = Object.values(j?.query?.pages || {});
     if (!pages.length){ CAT_CACHE.set(key,false); return false; }
-    const categories = (pages[0].categories || []).map(c => (c.title||"").toLowerCase());
+    const cats = (pages[0].categories || []).map(c => (c.title||"").toLowerCase());
 
-    // Señales de NYC: ciudad o boroughs en categorías
-    const SIGNALS = ["new york","manhattan","brooklyn","queens","bronx","staten island","nyc"];
-    ok = categories.some(cat => SIGNALS.some(sig => cat.includes(sig)));
+    const citySignals = ["new york","manhattan","brooklyn","queens","bronx","staten island","nyc"];
+    const historySignals = [
+      "history of new york city","cultural history of new york city",
+      "events in new york city","festivals in new york city",
+      "historia de nueva york","eventos en nueva york","festivales de nueva york",
+      "urban planning in new york city","economy of new york city","government of new york city",
+      "urbanismo de nueva york","economía de nueva york","gobierno de nueva york"
+    ];
+    const matchCity   = cats.some(cat => citySignals.some(sig => cat.includes(sig)));
+    const matchFacts  = cats.some(cat => historySignals.some(sig => cat.includes(sig)));
+    const patternInNY = cats.some(cat => / in new york city\)?$/i.test(cat));
+
+    ok = matchCity || matchFacts || patternInNY;
   }catch{}
   CAT_CACHE.set(key, ok);
   return ok;
 }
 
-// ---------- Scoring dinámico NYC ----------
-async function nycScore(summary, lang){
+// Scoring (modo "places" | "facts")
+async function nycScore(summary, lang, mode="places"){
   if (!summary) return -999;
-  if (isDisambiguation(summary)) return -100;  // nunca aceptamos desambiguación
+  if (isDisambiguation(summary)) return -100;
 
   let score = 0;
-
-  // Coordenadas dentro del BBox
   const c = summary.coordinates;
   if (c && inNycBbox(c.lat, c.lon)) score += 3;
 
-  // Categorías
-  try{
-    if (await belongsToNYCategories(summary.title, lang)) score += 4;
-  }catch{}
+  try{ if (await belongsToNYCategories(summary.title, lang)) score += 3; }catch{}
+  try{ if (await wikidataLocatedInNYC(summary.wikibase_item)) score += 5; }catch{}
+  try{ if (await wikidataHeldAtNYC(summary.wikibase_item))    score += 4; }catch{}
 
-  // Wikidata P131
-  try{
-    if (await wikidataLocatedInNYC(summary.wikibase_item)) score += 6;
-  }catch{}
+  if (mode === "facts"){
+    try{
+      if (await wikidataIsEventLike(summary.wikibase_item)) score += 4;
+      else score -= 3;
+    }catch{}
+  }
 
   return score;
 }
 
-// ---------- Imagen: fallbacks
+// Imagen (fallbacks)
 function pickFromSrcset(srcset=[], targetW=800){
   if (!Array.isArray(srcset) || srcset.length===0) return null;
   const ordered = [...srcset].sort((a,b)=>(a.width||0)-(b.width||0));
   return ordered.find(x => (x.width||0) >= targetW)?.src || ordered[ordered.length-1].src;
 }
-
-// P18 de Wikidata 
 async function wikidataMainImageUrl(wikibaseId, width = 800){
   if (!wikibaseId) return null;
   try{
-    const url = `https://www.wikidata.org/wiki/Special:EntityData/${encodeURIComponent(wikibaseId)}.json`;
-    const r = await fetch(url);
-    if (!r.ok) return null;
-    const data = await r.json();
-    const ent  = data?.entities?.[wikibaseId];
+    const ent = await fetchWikidataEntity(wikibaseId);
     const p18  = ent?.claims?.P18?.[0]?.mainsnak?.datavalue?.value;
     if (!p18) return null;
     return `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(p18)}?width=${width}`;
   }catch{ return null; }
 }
-
 async function bestImageUrl({ summary, media, pageImage, wikibaseId }){
-  // media-list
   if (media?.items?.length){
     const img = media.items.find(i => i.type==="image" && i.section==="lead")
              || media.items.find(i => i.type==="image");
@@ -135,22 +167,19 @@ async function bestImageUrl({ summary, media, pageImage, wikibaseId }){
     if (fromSrcset) return fromSrcset;
     if (img?.src) return img.src;
   }
-  // summary
   if (summary?.originalimage?.source) return summary.originalimage.source;
   if (summary?.thumbnail?.source)    return summary.thumbnail.source;
-  // pageimages
-  if (pageImage?.original?.source) return pageImage.original.source;
-  if (pageImage?.thumbnail?.source) return pageImage.thumbnail.source;
-  // wikidata P18
+  if (pageImage?.original?.source)   return pageImage.original.source;
+  if (pageImage?.thumbnail?.source)  return pageImage.thumbnail.source;
   const wd = await wikidataMainImageUrl(wikibaseId, 800);
   if (wd) return wd;
-
   return null;
 }
 
 window.NYC_GUARD = {
   isDisambiguation,
   inNycBbox,
-  nycScore,       // puntaje NYC (P131 + categorías + coords)
+  nycScore,       // puntaje NYC con modo
   bestImageUrl,   // fallbacks imagen
 };
+

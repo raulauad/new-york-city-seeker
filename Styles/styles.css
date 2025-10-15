@@ -38,7 +38,7 @@ main h1{
   color: #fff;
   margin-top: 1rem;
 }
-/* ——— Carrusel ——— */
+/* Carrusel */
 .carousel {
   max-width: 900px;
   margin: 2rem auto;
@@ -47,7 +47,7 @@ main h1{
 
 .carousel-viewport {
   position: relative;
-  overflow: hidden;              /* Oculta las imágenes fuera de vista */
+  overflow: hidden;              
   border-radius: 12px; 
   background: transparent;
 }
@@ -66,7 +66,7 @@ main h1{
   width: 100%;
   height: 420px;              
   object-fit: cover;
-  flex: 0 0 100%; /*Cada slide eqivale al 100% del viewport*/
+  flex: 0 0 100%; 
   display: block;
 
 
@@ -108,14 +108,14 @@ main h1{
 .dropbtn img { filter: invert(1) drop-shadow(0 1px 2px rgba(254, 254, 254, 0.2));} /*Iconos blancos con sombra*/
 
 
-/* ——— Buscador ——— */
+/*  Buscador  */
 :root{
   --border:#e5e5e5;
   --muted:#666;
   --error:#b00020;
-  --card-w:720px;      /* ancho fijo del card */
-  --card-h:320px;      /* alto fijo del card */
-  --img-w:260px;       /* ancho fijo de la columna de imagen */
+  --card-w:720px;     
+  --card-h:320px;      
+  --img-w:260px;       
 }
 
 *{ box-sizing:border-box }
@@ -135,6 +135,30 @@ body{
   text-align: center;
   font-size: 5rem;
   margin-bottom: 1rem;
+}
+.cards-presentation{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  gap: 1rem;
+
+  border: 1px solid #b46807;
+  border-radius: 10px;
+}
+.card-presentation{
+  border-right: 1px solid #fae052 ;
+  padding: 1rem;
+}
+.card-presentation h3{
+  background: linear-gradient(to right,  #b46807 ,  #fae052);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.cards-presentation p{
+  color: #fff;
+  font-size: 1.2rem;
 }
 
 .search{
@@ -168,16 +192,16 @@ body{
   cursor: pointer;
 }
 
-/* CONTENEDORES MÁS ANCHOS */
+/* Contenedores mas anchos */
 .search-wrap, .results-wrap, #status {
   max-width: 1100px;
   margin: 0 auto;
 }
 
-/* CARD GRANDE */
+/* Card grande */
 .card.card-wide {
   display: grid;
-  grid-template-columns: 480px 1fr;  /* imagen grande + contenido */
+  grid-template-columns: 480px 1fr;  
   gap: 24px;
   align-items: start;
   background: #151515;
@@ -188,7 +212,7 @@ body{
   box-shadow: 0 10px 28px rgba(0,0,0,.35);
 }
 
-/* IMAGEN DE CABECERA */
+/* Imagen de cabecera */
 .card.card-wide .img-wrap {
   width: 100%;
   height: 420px;
@@ -203,7 +227,7 @@ body{
   display: block;
 }
 
-/* TITULOS/RESUMEN */
+/* Titulos */
 .card.card-wide .title { font-size: 1.9rem; line-height: 1.2; margin: 0 0 8px; color: #fff }
 .card.card-wide .muted { color: #9aa0a6; font-weight: 400; }
 .card.card-wide .desc  { color: #c8c8c8; margin-bottom: 6px; }
@@ -211,7 +235,7 @@ body{
 .card.card-wide .meta { font-size: .95rem; color: #9aa0a6; margin-bottom: 14px; }
 .card.card-wide .meta a { color: #8ab4f8; }
 
-/* ARTÍCULO COMPLETO – NORMALIZACIÓN WIKI */
+/* Articulo completo */
 .card.card-wide .article-html{
   padding-top: 10px;
   border-top: 1px dashed #928d88;
@@ -219,7 +243,7 @@ body{
   overflow: auto;
 }
 
-/* Quitar elementos que la API deja pero no querés en tu UI */
+/* Quitar elementos */
 .article-html .mw-editsection,
 .article-html .mw-empty-elt,
 .article-html .noprint,
@@ -230,7 +254,7 @@ body{
 .article-html .navbox,
 .article-html .metadata { display: none !important; }
 
-/* Infobox al ancho, sin float, estilo limpio */
+/* Infobox al ancho */
 .article-html .infobox{
   float: none !important;
   margin: 0 0 16px 0 !important;
@@ -260,7 +284,273 @@ body{
 }
 
 /* Tipografía del cuerpo */
-.article-html p{ line-height: 1.65; margin: .6em 0; color: #e6e6e6; }
+.article-html p{ line-height: 1.65; margin: .6em 0; color: #fff; }
 .article-html h2, .article-html h3{ margin-top: 1.2em; color: #fff; }
 .article-html a{ color: #8ab4f8; text-decoration: none; }
 .article-html a:hover{ text-decoration: underline; color: #fff; }
+.article-html a,
+.article-html a:visited,
+.article-html .mw-parser-output a,
+.article-html .external,
+.article-html .extiw,
+.article-html .mw-redirect {
+  color: #8ab4f8 !important;
+  text-decoration: none;
+}
+.article-html a:hover { color: #ffffff !important; text-decoration: underline; }
+
+/* Referencias (números superíndice) visibles y legibles */
+.article-html sup.reference,
+.article-html sup.reference a {
+  color: #8ab4f8 !important;
+  background: transparent !important;
+}
+/* Si preferís ocultarlas, descomentá la siguiente línea */
+/* .article-html sup.reference { display: none !important; } */
+
+/* Títulos/encabezados sin fondos blancos */
+.article-html h1,
+.article-html h2,
+.article-html h3,
+.article-html h4,
+.article-html h5,
+.article-html h6,
+.article-html .mw-headline {
+  color: #ffffff !important;
+  background: transparent !important;
+}
+
+/* Tablas en general (evita celdas o cabeceras blancas) */
+.article-html table { background: #0f0f0f; border-collapse: collapse; }
+.article-html th,
+.article-html td {
+  background: #111111 !important;
+  color: #eaeaea !important;
+  border: 1px solid #333 !important;
+}
+
+/* Infobox (la ficha lateral) */
+.article-html .infobox {
+  background: #111 !important;
+  color: #eaeaea !important;
+  border: 1px solid #333 !important;
+}
+.article-html .infobox th,
+.article-html .infobox td {
+  background: #111 !important;
+  color: #eaeaea !important;
+}
+.article-html .infobox .infobox-above,
+.article-html .infobox .infobox-header,
+.article-html .infobox caption {
+  background: #1a1a1a !important;
+  color: #fff !important;
+}
+
+/* Barras/títulos de módulos (p.ej. “Mapa de localización”) y captions */
+.article-html .navbox-title,
+.article-html .ambox,
+.article-html .mbox,
+.article-html .hatnote,
+.article-html caption,
+.article-html .maptable caption,
+.article-html .legend,
+.article-html .toclimit-2 .toc {
+  background: #1a1a1a !important;
+  color: #fff !important;
+  border-color: #333 !important;
+}
+
+/* Enlaces dentro de tablas/infobox que se veían negros */
+.article-html th a,
+.article-html td a { color: #8ab4f8 !important; }
+/* Todo el contenido del artículo hereda color claro */
+.article-html,
+.article-html .mw-parser-output {
+  color: #eaeaea !important;
+}
+
+/* Asegura que cualquier descendiente herede ese color (evita textos negros sueltos) */
+.article-html * {
+  color: inherit !important;
+}
+
+/* Enlaces visibles en dark */
+.article-html a,
+.article-html .mw-parser-output a,
+.article-html a:visited {
+  color: #8ab4f8 !important;
+  text-decoration: none;
+}
+.article-html a:hover { color:#fff !important; text-decoration: underline; }
+
+/* Títulos SIN fondos blancos */
+.article-html h1, .article-html h2, .article-html h3,
+.article-html h4, .article-html h5, .article-html h6,
+.article-html .mw-headline {
+  color:#fff !important;
+  background: transparent !important;
+}
+
+/* Tablas/infobox en oscuro */
+.article-html table { background:#0f0f0f; border-collapse:collapse; }
+.article-html th, .article-html td {
+  background:#111 !important; color:#eaeaea !important; border:1px solid #333 !important;
+}
+.article-html .infobox {
+  background:#111 !important; color:#eaeaea !important; border:1px solid #333 !important;
+}
+.article-html .infobox th, .article-html .infobox td {
+  background:#111 !important; color:#eaeaea !important;
+}
+
+/* Barras y captions */
+.article-html caption,
+.article-html .navbox-title,
+.article-html .ambox, .article-html .mbox, .article-html .hatnote {
+  background:#1a1a1a !important; color:#fff !important; border-color:#333 !important;
+}
+
+/*  Resaltados de MediaWiki (lo que te queda azul con texto negro)  */
+/* Cuando llegás a una sección/nota, MediaWiki aplica estas clases para “highlight”. */
+.article-html .mw-highlighted,
+.article-html .reference-highlight,
+.article-html .target-highlight,
+.article-html .cx-highlight {
+  background:#203245 !important;   
+  color:#eaeaea !important;
+  border:1px solid #2b3e55 !important;
+}
+
+.article-html sup.reference,
+.article-html sup.reference a { color:#8ab4f8 !important; background:transparent !important; }
+
+
+@media (max-width: 900px){
+  .cards-presentation{
+    display: flex;
+    flex-direction: column;
+  }
+  .card-presentation{
+    border-bottom: 1px solid #fae052;
+    padding: 1rem;
+    border-radius: 10px;
+  }
+}
+
+@media (max-width: 900px){
+  .search-wrap, .results-wrap, #status { max-width: 100%; padding-inline: 16px; }
+}
+@media (max-width: 900px){
+  .card.card-wide{
+    grid-template-columns: 1fr;   /* imagen arriba, contenido abajo */
+    gap: 16px;
+    padding: 14px;
+  }
+  .card.card-wide .img-wrap{ height: 260px; }
+  /* El artículo deja de estar “encerrado” en un alto fijo en pantallas pequeñas */
+  .card.card-wide .article-html{
+    max-height: none;
+    overflow: visible;
+  }
+}
+
+
+.article-html,
+.article-html .mw-parser-output{ max-width: 100%; }
+
+.article-html img,
+.article-html video,
+.article-html svg,
+.article-html figure,
+.article-html .thumb img,
+.article-html .infobox img{
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+.article-html *{
+  box-sizing: border-box;
+  max-width: 100%;
+  overflow-wrap: anywhere;         
+}
+
+/* Las tablas pueden desbordar: las hacemos scrolleables en x */
+.article-html table{
+  display: block;
+  width: 100% !important;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-collapse: collapse;
+}
+
+/* Mantiene celda legible en móviles */
+.article-html th, .article-html td{
+  white-space: normal;             
+  vertical-align: top;
+  padding: .55rem .6rem;
+}
+
+.article-html .infobox{
+  float: none !important;
+  width: 100% !important;
+  margin: 0 0 14px 0 !important;
+  border-radius: 10px;
+}
+.article-html .thumb, 
+.article-html .thumbinner{
+  float: none !important;
+  width: 100% !important;
+  margin: 12px 0 !important;
+}
+.article-html .gallery,
+.article-html .gallery ul{
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(140px,1fr));
+  gap: 10px;
+  width: 100% !important;
+}
+
+.article-html pre,
+.article-html code,
+.article-html .mw-code{
+  white-space: pre-wrap !important;  /* permite wraps */
+  word-break: break-word;
+  overflow-x: auto;
+}
+
+/*Mapas*/
+.article-html iframe,
+.article-html .mapframe,
+.article-html .mw-kartographer-map{
+  width: 100% !important;
+  height: clamp(220px, 45vw, 420px) !important;
+  border: 0;
+}
+
+/*Ajuste titulo*/
+@media(max-width: 760px){
+  .search-container h1{
+    font-size: 3.5rem;
+    text-align: center;
+  }
+}
+/* Ajustes tipografia en movil*/
+@media (max-width: 600px){
+  .card.card-wide .title{ font-size: 1.5rem; }
+  .article-html p{ line-height: 1.6; }
+  .card.card-wide .img-wrap{ height: 220px; }
+}
+
+/*Scrollbar más discreto en tablas */
+.article-html table::-webkit-scrollbar{ height: 10px; }
+.article-html table::-webkit-scrollbar-thumb{ background:#2f2f2f; border-radius: 6px; }
+
+/*Toastify*/
+.toast-info    { background: linear-gradient(#b46807, #fae052 ) !important; }
+.toast-success { background: linear-gradient(#b46807, #fae052 )!important; }
+.toast-warn    { background: linear-gradient(#b46807, #fae052 ) !important; }
+.toast-error   { background: linear-gradient(#b46807, #fae052 )!important; }
+
+
+/*#b46807 ,  #fae052*/

@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <link rel="stylesheet" href="Styles/styles.css">
     <script src = "JS/carousel.js" defer></script>
-    <script src = "JS/dropdown-header.js" defer></script>
     <script src = "JS/app-nyc.js" defer></script>
     <script src = "JS/utilities.js" defer></script>
 </head>
@@ -42,7 +43,22 @@
             </div>
         </section>
         <section class = "search-container">
-            <h1>Buscador cultural NYC</h1>
+            <h1>Geo-search Nueva York</h1>
+            <p>Busqueda de lugares en Nueva York</p>
+            <section class = "cards-presentation">
+                <div class = "card-presentation">
+                    <h3>Motor de busqueda V1</h3>
+                    <p>El motor de busqueda permite encontrar cualquier lugar de Nueva York, siempre y cuando exista en Wikipedia ya que la información es obtenida de la API</p>
+                </div>
+                <div class = "card-presentation">
+                    <h3>Busqueda bilingüe</h3>
+                    <p>Se encuentra disponible tanto en ingles como en español, el resultado de la busqueda depende del idioma</p>
+                </div>
+                <div class = "card-presentation">
+                    <h3>Actualizaciones a futuro</h3>
+                    <p>Tenemos pensado incorporar nuevas actualizaciones para mejorar la expriencia del usuario en conjunto con el motor de busqueda</p>
+                </div>
+            </section>
             <div class="search">
                 <input id="q" type="search" placeholder="Ej.: brooklyn, manhattan, museo metropolitano…" />
                 <button id="go">Buscar</button>
@@ -50,7 +66,7 @@
 
             <div id="status" class="muted">Escribe y presiona “Buscar” (o espera 400 ms).</div>
             <div id="results" class="cards">
-
+                <!-- Aquí van las cards -->
             </div>
         </section>
     </main>
