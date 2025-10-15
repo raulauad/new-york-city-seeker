@@ -76,7 +76,6 @@
   <li>La tarjeta principal incluye título, descripción, imagen destacada y extracto del artículo.</li>
   <li>El enlace «Ver en Wikipedia» abre el artículo original en una pestaña nueva.</li>
   <li>El cuerpo del artículo se renderiza directamente en la tarjeta con formato oscuro y tablas adaptadas.</li>
-  <li>El área de estado bajo la barra de búsqueda indicará “Buscando…”, “Listo.” o mensajes de error.</li>
   <li>Notificaciones emergentes (Toastify) refuerzan la retroalimentación (éxito, advertencia o error).</li>
 </ul>
 
